@@ -533,6 +533,18 @@ export default function Header({
 
                 {currentTrik.enabled && (
                   <>
+                    {/* Title */}
+                    <div className="flex items-center gap-3">
+                      <label className="text-white text-sm w-40">Judul Panel:</label>
+                      <input
+                        type="text"
+                        value={currentTrik.title}
+                        onChange={(e) => setCurrentTrik({ ...currentTrik, title: e.target.value })}
+                        className="flex-1 px-3 py-2 bg-gray-700 text-white rounded border border-gray-600 focus:border-yellow-500 focus:outline-none"
+                        placeholder="TRIK GACOR"
+                      />
+                    </div>
+
                     {/* Deposit Kode */}
                     <div className="flex items-center gap-3">
                       <label className="text-white text-sm w-40">Deposit Kode Unik:</label>

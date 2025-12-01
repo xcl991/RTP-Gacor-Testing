@@ -73,6 +73,7 @@ export interface TrikItem {
 
 export interface TrikConfig {
   enabled: boolean;
+  title: string; // Custom title untuk panel (default: "TRIK GACOR")
   depositKode: string;
   putaranBetMin: number;
   putaranBetMax: number;

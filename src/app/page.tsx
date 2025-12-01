@@ -20,6 +20,7 @@ export default function Home() {
   // States untuk Trik Modal
   const defaultTrikConfig: TrikConfig = {
     enabled: false,
+    title: 'TRIK GACOR',
     depositKode: '7777',
     putaranBetMin: 100,
     putaranBetMax: 2000,

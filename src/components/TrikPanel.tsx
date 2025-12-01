@@ -168,7 +168,7 @@ export default function TrikPanel({
             textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}50`
           }}
         >
-          {isMono ? '> TRIK_GACOR' : 'TRIK GACOR'}
+          {isMono ? `> ${trik.title.replace(/\s+/g, '_')}` : trik.title}
         </h3>
       </div>
 
