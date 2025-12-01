@@ -109,7 +109,7 @@ export default function GameGrid({
   });
 
   return (
-    <div className={`relative mb-8 p-4 rounded-lg ${getBlurClass()}`} style={getSectionStyle()}>
+    <div className={`relative h-full p-4 rounded-lg ${getBlurClass()}`} style={getSectionStyle()}>
       {/* Pattern Overlay */}
       {cardStyle?.pattern && cardStyle.pattern !== 'none' && (
         <div

@@ -77,50 +77,47 @@ const TrikPanel = ({
         </h3>
       </div>
 
-      {/* Content - dengan justify-between untuk distribusi vertikal */}
-      <div className="p-4 flex-1 flex flex-col justify-between gap-2">
-        {/* Top Section */}
-        <div className="space-y-2">
-          {/* Deposit Kode */}
-          <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
-            <span className="text-gray-400 text-xs block">DEPOSIT KODE UNIK</span>
-            <span
-              className="text-2xl font-black"
-              style={{
-                color: providerColor,
-                textShadow: `0 0 10px ${providerColor}`
-              }}
-            >
-              {trik.depositKode}
-            </span>
-          </div>
-
-          {/* Putaran Bet */}
-          <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
-            <span className="text-gray-400 text-xs block">PUTARAN BET</span>
-            <span
-              className="text-lg font-bold"
-              style={{ color: providerColor }}
-            >
-              {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
-            </span>
-          </div>
-
-          {/* Fitur Ganda */}
-          <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
-            <span className="text-gray-400 text-xs block">FITUR GANDA</span>
-            <span
-              className={`text-sm font-bold px-3 py-1 rounded-full inline-block mt-1 ${
-                trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-              }`}
-            >
-              MODE {trik.fiturGanda ? 'ON' : 'OFF'}
-            </span>
-          </div>
+      {/* Content - scrollable jika konten lebih tinggi */}
+      <div className="p-4 flex-1 overflow-y-auto min-h-0 flex flex-col gap-2">
+        {/* Deposit Kode */}
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center flex-shrink-0">
+          <span className="text-gray-400 text-xs block">DEPOSIT KODE UNIK</span>
+          <span
+            className="text-2xl font-black"
+            style={{
+              color: providerColor,
+              textShadow: `0 0 10px ${providerColor}`
+            }}
+          >
+            {trik.depositKode}
+          </span>
         </div>
 
-        {/* Middle Section - Trik Items (flex-1 untuk mengisi ruang) */}
-        <div className="space-y-2 flex-1 flex flex-col justify-center">
+        {/* Putaran Bet */}
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center flex-shrink-0">
+          <span className="text-gray-400 text-xs block">PUTARAN BET</span>
+          <span
+            className="text-lg font-bold"
+            style={{ color: providerColor }}
+          >
+            {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
+          </span>
+        </div>
+
+        {/* Fitur Ganda */}
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center flex-shrink-0">
+          <span className="text-gray-400 text-xs block">FITUR GANDA</span>
+          <span
+            className={`text-sm font-bold px-3 py-1 rounded-full inline-block mt-1 ${
+              trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+            }`}
+          >
+            MODE {trik.fiturGanda ? 'ON' : 'OFF'}
+          </span>
+        </div>
+
+        {/* Trik Items */}
+        <div className="space-y-2 flex-shrink-0">
           {trik.trikItems.map((item, index) => (
             <div
               key={index}
@@ -140,9 +137,9 @@ const TrikPanel = ({
           ))}
         </div>
 
-        {/* Bottom Section - Custom Text */}
+        {/* Custom Text */}
         <div
-          className="text-center py-2 px-3 rounded-lg flex-shrink-0"
+          className="text-center py-2 px-3 rounded-lg flex-shrink-0 mt-auto"
           style={{
             background: `linear-gradient(90deg, transparent, ${providerColor}20, transparent)`,
             border: `1px solid ${providerColor}30`
@@ -218,10 +215,15 @@ export default function DefaultLayout({
 
       {/* Games Container */}
       <div className="flex-1 space-y-6">
-        {/* Pragmatic Play Section - Side by Side */}
-        <div className="flex gap-4 items-stretch">
+        {/* Pragmatic Play Section - Side by Side dengan CSS Grid */}
+        <div
+          className="grid gap-4"
+          style={{
+            gridTemplateColumns: pragmaticTrik.enabled ? '1fr 256px' : '1fr'
+          }}
+        >
           {/* RTP Grid */}
-          <div className={pragmaticTrik.enabled ? 'flex-1 min-w-0' : 'w-full'}>
+          <div className="min-w-0">
             <GameGrid
               title="PRAGMATIC PLAY"
               games={selectedPragmaticGames}
@@ -234,16 +236,21 @@ export default function DefaultLayout({
           </div>
           {/* Trik Panel Pragmatic */}
           {pragmaticTrik.enabled && (
-            <div className="w-64 flex-shrink-0 self-stretch">
+            <div className="min-h-0">
               <TrikPanel trik={pragmaticTrik} provider="PRAGMATIC PLAY" style={selectedStyle} />
             </div>
           )}
         </div>
 
-        {/* PG Soft Section - Side by Side */}
-        <div className="flex gap-4 items-stretch">
+        {/* PG Soft Section - Side by Side dengan CSS Grid */}
+        <div
+          className="grid gap-4"
+          style={{
+            gridTemplateColumns: pgSoftTrik.enabled ? '1fr 256px' : '1fr'
+          }}
+        >
           {/* RTP Grid */}
-          <div className={pgSoftTrik.enabled ? 'flex-1 min-w-0' : 'w-full'}>
+          <div className="min-w-0">
             <GameGrid
               title="PG SOFT"
               games={selectedPgSoftGames}
@@ -256,7 +263,7 @@ export default function DefaultLayout({
           </div>
           {/* Trik Panel PG Soft */}
           {pgSoftTrik.enabled && (
-            <div className="w-64 flex-shrink-0 self-stretch">
+            <div className="min-h-0">
               <TrikPanel trik={pgSoftTrik} provider="PG SOFT" style={selectedStyle} />
             </div>
           )}
