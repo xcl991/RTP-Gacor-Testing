@@ -35,8 +35,8 @@ const PatternDisplay = ({ pattern }: { pattern: string }) => {
   );
 };
 
-// Komponen Modal Trik
-const TrikModal = ({
+// Komponen Panel Trik (Compact - untuk side-by-side layout)
+const TrikPanel = ({
   trik,
   provider,
   style
@@ -51,39 +51,39 @@ const TrikModal = ({
 
   return (
     <div
-      className="mt-4 rounded-xl overflow-hidden"
+      className="h-full rounded-xl overflow-hidden flex flex-col"
       style={{
         background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.95) 100%)',
         border: `2px solid ${providerColor}`,
-        boxShadow: `0 0 20px ${providerColor}40, inset 0 0 30px rgba(0,0,0,0.5)`
+        boxShadow: `0 0 15px ${providerColor}30, inset 0 0 20px rgba(0,0,0,0.5)`
       }}
     >
       {/* Header */}
       <div
-        className="px-6 py-4 text-center"
+        className="px-4 py-3 text-center"
         style={{
           background: `linear-gradient(90deg, transparent, ${providerColor}30, transparent)`,
           borderBottom: `1px solid ${providerColor}50`
         }}
       >
         <h3
-          className="text-2xl font-black uppercase tracking-wider"
+          className="text-lg font-black uppercase tracking-wider"
           style={{
             color: providerColor,
             textShadow: `0 0 10px ${providerColor}, 0 0 20px ${providerColor}50`
           }}
         >
-          TRIK GACOR {provider}
+          TRIK GACOR
         </h3>
       </div>
 
       {/* Content */}
-      <div className="p-6 space-y-4">
+      <div className="p-4 space-y-2 flex-1 flex flex-col">
         {/* Deposit Kode */}
-        <div className="flex items-center justify-between bg-black/50 rounded-lg px-4 py-3">
-          <span className="text-gray-300 font-semibold">DEPOSIT KODE UNIK GACOR:</span>
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
+          <span className="text-gray-400 text-xs block">DEPOSIT KODE UNIK</span>
           <span
-            className="text-3xl font-black"
+            className="text-2xl font-black"
             style={{
               color: providerColor,
               textShadow: `0 0 10px ${providerColor}`
@@ -94,10 +94,10 @@ const TrikModal = ({
         </div>
 
         {/* Putaran Bet */}
-        <div className="flex items-center justify-between bg-black/50 rounded-lg px-4 py-3">
-          <span className="text-gray-300 font-semibold">PUTARAN BET:</span>
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
+          <span className="text-gray-400 text-xs block">PUTARAN BET</span>
           <span
-            className="text-2xl font-bold"
+            className="text-lg font-bold"
             style={{ color: providerColor }}
           >
             {trik.putaranBetMin.toLocaleString()} - {trik.putaranBetMax.toLocaleString()}
@@ -105,10 +105,10 @@ const TrikModal = ({
         </div>
 
         {/* Fitur Ganda */}
-        <div className="flex items-center justify-between bg-black/50 rounded-lg px-4 py-3">
-          <span className="text-gray-300 font-semibold">FITUR GANDA:</span>
+        <div className="bg-black/50 rounded-lg px-3 py-2 text-center">
+          <span className="text-gray-400 text-xs block">FITUR GANDA</span>
           <span
-            className={`text-xl font-bold px-4 py-1 rounded-full ${
+            className={`text-sm font-bold px-3 py-1 rounded-full inline-block mt-1 ${
               trik.fiturGanda ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
             }`}
           >
@@ -117,16 +117,16 @@ const TrikModal = ({
         </div>
 
         {/* Trik Items */}
-        <div className="space-y-2">
+        <div className="space-y-1 flex-1">
           {trik.trikItems.map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between bg-black/50 rounded-lg px-4 py-3"
+              className="flex items-center justify-between bg-black/50 rounded-lg px-3 py-2"
             >
-              <div className="flex items-center gap-3">
-                <span className="text-white font-semibold">{item.name}</span>
+              <div className="flex flex-col">
+                <span className="text-white text-sm font-semibold">{item.name}</span>
                 <span
-                  className="font-bold"
+                  className="text-xs font-bold"
                   style={{ color: providerColor }}
                 >
                   {item.value}
@@ -139,14 +139,14 @@ const TrikModal = ({
 
         {/* Custom Text */}
         <div
-          className="text-center py-4 px-6 rounded-lg mt-4"
+          className="text-center py-2 px-3 rounded-lg"
           style={{
             background: `linear-gradient(90deg, transparent, ${providerColor}20, transparent)`,
             border: `1px solid ${providerColor}30`
           }}
         >
           <p
-            className="text-lg font-bold uppercase"
+            className="text-xs font-bold uppercase leading-tight"
             style={{
               color: providerColor,
               textShadow: `0 0 5px ${providerColor}50`
@@ -214,35 +214,49 @@ export default function DefaultLayout({
       </div>
 
       {/* Games Container */}
-      <div className="flex-1">
-        {/* Pragmatic Play Section */}
-        <div className="mb-6">
-          <GameGrid
-            title="PRAGMATIC PLAY"
-            games={selectedPragmaticGames}
-            gameCount={pragmaticCount}
-            providerLogo="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd6JBXF6-nJ7cAuYfPpx5tAckyV8KM5guWWeV-ZIHVCUluIE8As1b41nyGJE3FSsL__ImOQ3WOOmymZmvWzECCUR5Qagtg2OdKeatK2elfcSL4rZB-ARMUXCJyWuIY8j29KomqPboqtVqgXBGNyP5LKPgjlfNKkbhnXkgGrAaZ234uQBSauAMzOvQ7zSFq/w411-h274/Pragmatic-Play-logo.png"
-            providerColor="#ffd700"
-            style={selectedStyle}
-            cardStyle={selectedCardStyle}
-          />
-          {/* Trik Modal Pragmatic */}
-          <TrikModal trik={pragmaticTrik} provider="PRAGMATIC PLAY" style={selectedStyle} />
+      <div className="flex-1 space-y-6">
+        {/* Pragmatic Play Section - Side by Side */}
+        <div className={`flex gap-4 ${pragmaticTrik.enabled ? '' : ''}`}>
+          {/* RTP Grid */}
+          <div className={pragmaticTrik.enabled ? 'flex-1' : 'w-full'}>
+            <GameGrid
+              title="PRAGMATIC PLAY"
+              games={selectedPragmaticGames}
+              gameCount={pragmaticCount}
+              providerLogo="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgd6JBXF6-nJ7cAuYfPpx5tAckyV8KM5guWWeV-ZIHVCUluIE8As1b41nyGJE3FSsL__ImOQ3WOOmymZmvWzECCUR5Qagtg2OdKeatK2elfcSL4rZB-ARMUXCJyWuIY8j29KomqPboqtVqgXBGNyP5LKPgjlfNKkbhnXkgGrAaZ234uQBSauAMzOvQ7zSFq/w411-h274/Pragmatic-Play-logo.png"
+              providerColor="#ffd700"
+              style={selectedStyle}
+              cardStyle={selectedCardStyle}
+            />
+          </div>
+          {/* Trik Panel Pragmatic */}
+          {pragmaticTrik.enabled && (
+            <div className="w-64 flex-shrink-0">
+              <TrikPanel trik={pragmaticTrik} provider="PRAGMATIC PLAY" style={selectedStyle} />
+            </div>
+          )}
         </div>
 
-        {/* PG Soft Section */}
-        <div className="mb-6">
-          <GameGrid
-            title="PG SOFT"
-            games={selectedPgSoftGames}
-            gameCount={pgSoftCount}
-            providerLogo="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyRL8QUJ4ATALDgUz3f6Xzp8WeH_7vGwGW6KYIdsi3gC_F9HkYiTABnlxysMEFraHBkUUnc71XGjXybY7EQNqlN3-Ddz480rPdcV_CWGie6bwGds0LzTZ7JClIkg-t-nCTzMOa_qJJQV_ARXE_dbQajerSg7IyDHiDRYswEQdyRQWs6pTlcFbsTNMzbn07/w539-h303/663b3b87ed4e2097a300be14_pg-soft.png"
-            providerColor="#00f0ff"
-            style={selectedStyle}
-            cardStyle={selectedCardStyle}
-          />
-          {/* Trik Modal PG Soft */}
-          <TrikModal trik={pgSoftTrik} provider="PG SOFT" style={selectedStyle} />
+        {/* PG Soft Section - Side by Side */}
+        <div className={`flex gap-4 ${pgSoftTrik.enabled ? '' : ''}`}>
+          {/* RTP Grid */}
+          <div className={pgSoftTrik.enabled ? 'flex-1' : 'w-full'}>
+            <GameGrid
+              title="PG SOFT"
+              games={selectedPgSoftGames}
+              gameCount={pgSoftCount}
+              providerLogo="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyRL8QUJ4ATALDgUz3f6Xzp8WeH_7vGwGW6KYIdsi3gC_F9HkYiTABnlxysMEFraHBkUUnc71XGjXybY7EQNqlN3-Ddz480rPdcV_CWGie6bwGds0LzTZ7JClIkg-t-nCTzMOa_qJJQV_ARXE_dbQajerSg7IyDHiDRYswEQdyRQWs6pTlcFbsTNMzbn07/w539-h303/663b3b87ed4e2097a300be14_pg-soft.png"
+              providerColor="#00f0ff"
+              style={selectedStyle}
+              cardStyle={selectedCardStyle}
+            />
+          </div>
+          {/* Trik Panel PG Soft */}
+          {pgSoftTrik.enabled && (
+            <div className="w-64 flex-shrink-0">
+              <TrikPanel trik={pgSoftTrik} provider="PG SOFT" style={selectedStyle} />
+            </div>
+          )}
         </div>
       </div>
 
