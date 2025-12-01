@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface HolographicGameCardProps {
   game: Game;
@@ -117,6 +118,8 @@ interface CasinoHolographicLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoHolographicLayout({
@@ -128,7 +131,9 @@ export default function CasinoHolographicLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoHolographicLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -250,6 +255,17 @@ export default function CasinoHolographicLayout({
                 />
               ))}
             </div>
+            {pragmaticTrik.enabled && (
+              <div className="relative z-10 mt-4">
+                <TrikPanel
+                  trik={pragmaticTrik}
+                  providerColor={primaryColor}
+                  fontFamily="monospace"
+                  cardStyle={selectedCardStyle}
+                  variant="galaxy"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -297,6 +313,17 @@ export default function CasinoHolographicLayout({
                 />
               ))}
             </div>
+            {pgSoftTrik.enabled && (
+              <div className="relative z-10 mt-4">
+                <TrikPanel
+                  trik={pgSoftTrik}
+                  providerColor={secondaryColor}
+                  fontFamily="monospace"
+                  cardStyle={selectedCardStyle}
+                  variant="galaxy"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

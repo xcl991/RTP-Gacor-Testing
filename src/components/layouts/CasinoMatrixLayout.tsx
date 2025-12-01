@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface MatrixGameCardProps {
   game: Game;
@@ -95,6 +96,8 @@ interface CasinoMatrixLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoMatrixLayout({
@@ -106,7 +109,9 @@ export default function CasinoMatrixLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoMatrixLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -205,6 +210,17 @@ export default function CasinoMatrixLayout({
               />
             ))}
           </div>
+          {pragmaticTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pragmaticTrik}
+                providerColor={primaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="cyberpunk"
+              />
+            </div>
+          )}
         </div>
 
         {/* PG Soft Section */}
@@ -245,6 +261,17 @@ export default function CasinoMatrixLayout({
               />
             ))}
           </div>
+          {pgSoftTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pgSoftTrik}
+                providerColor={secondaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="cyberpunk"
+              />
+            </div>
+          )}
         </div>
       </div>
 

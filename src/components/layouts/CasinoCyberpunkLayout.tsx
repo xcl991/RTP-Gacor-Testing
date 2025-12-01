@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface CyberpunkGameCardProps {
   game: Game;
@@ -94,6 +95,8 @@ interface CasinoCyberpunkLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoCyberpunkLayout({
@@ -105,7 +108,9 @@ export default function CasinoCyberpunkLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoCyberpunkLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -214,6 +219,17 @@ export default function CasinoCyberpunkLayout({
               />
             ))}
           </div>
+          {pragmaticTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pragmaticTrik}
+                providerColor={primaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="cyberpunk"
+              />
+            </div>
+          )}
         </div>
 
         {/* PG Soft Section */}
@@ -252,6 +268,17 @@ export default function CasinoCyberpunkLayout({
               />
             ))}
           </div>
+          {pgSoftTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pgSoftTrik}
+                providerColor={secondaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="cyberpunk"
+              />
+            </div>
+          )}
         </div>
       </div>
 

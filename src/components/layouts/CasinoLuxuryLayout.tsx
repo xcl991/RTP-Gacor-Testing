@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface CasinoGameCardProps {
   game: Game;
@@ -76,6 +77,8 @@ interface CasinoLuxuryLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoLuxuryLayout({
@@ -87,7 +90,9 @@ export default function CasinoLuxuryLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoLuxuryLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -201,6 +206,17 @@ export default function CasinoLuxuryLayout({
               />
             ))}
           </div>
+          {pragmaticTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pragmaticTrik}
+                providerColor={primaryColor}
+                fontFamily="var(--font-cinzel), serif"
+                cardStyle={selectedCardStyle}
+                variant="elegant"
+              />
+            </div>
+          )}
         </div>
 
         <div
@@ -307,6 +323,17 @@ export default function CasinoLuxuryLayout({
               />
             ))}
           </div>
+          {pgSoftTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pgSoftTrik}
+                providerColor={secondaryColor}
+                fontFamily="var(--font-cinzel), serif"
+                cardStyle={selectedCardStyle}
+                variant="elegant"
+              />
+            </div>
+          )}
         </div>
       </div>
 

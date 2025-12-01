@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface SpaceGameCardProps {
   game: Game;
@@ -121,6 +122,8 @@ interface CasinoSpaceStationLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoSpaceStationLayout({
@@ -132,7 +135,9 @@ export default function CasinoSpaceStationLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoSpaceStationLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -247,6 +252,17 @@ export default function CasinoSpaceStationLayout({
               />
             ))}
           </div>
+          {pragmaticTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pragmaticTrik}
+                providerColor={primaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="galaxy"
+              />
+            </div>
+          )}
         </div>
 
         {/* PG Soft - Beta Wing */}
@@ -289,6 +305,17 @@ export default function CasinoSpaceStationLayout({
               />
             ))}
           </div>
+          {pgSoftTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pgSoftTrik}
+                providerColor={secondaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="galaxy"
+              />
+            </div>
+          )}
         </div>
       </div>
 

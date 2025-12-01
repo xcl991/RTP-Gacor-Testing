@@ -1,6 +1,7 @@
 'use client';
 
-import { RTPStyle, WebsiteOption, Game, CardStyleOption } from '@/types';
+import { RTPStyle, WebsiteOption, Game, CardStyleOption, TrikConfig } from '@/types';
+import TrikPanel from '../TrikPanel';
 
 interface QuantumGameCardProps {
   game: Game;
@@ -134,6 +135,8 @@ interface CasinoQuantumLayoutProps {
   pgSoftCount: number;
   getCurrentDate: () => string;
   selectedCardStyle: CardStyleOption;
+  pragmaticTrik: TrikConfig;
+  pgSoftTrik: TrikConfig;
 }
 
 export default function CasinoQuantumLayout({
@@ -145,7 +148,9 @@ export default function CasinoQuantumLayout({
   pragmaticCount,
   pgSoftCount,
   getCurrentDate,
-  selectedCardStyle
+  selectedCardStyle,
+  pragmaticTrik,
+  pgSoftTrik
 }: CasinoQuantumLayoutProps) {
   const primaryColor = selectedStyle.primaryColor;
   const secondaryColor = selectedStyle.secondaryColor;
@@ -263,6 +268,17 @@ export default function CasinoQuantumLayout({
               />
             ))}
           </div>
+          {pragmaticTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pragmaticTrik}
+                providerColor={primaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="futuristic"
+              />
+            </div>
+          )}
         </div>
 
         {/* Secondary Circuit - PG Soft */}
@@ -308,6 +324,17 @@ export default function CasinoQuantumLayout({
               />
             ))}
           </div>
+          {pgSoftTrik.enabled && (
+            <div className="relative z-10 mt-4">
+              <TrikPanel
+                trik={pgSoftTrik}
+                providerColor={secondaryColor}
+                fontFamily="monospace"
+                cardStyle={selectedCardStyle}
+                variant="futuristic"
+              />
+            </div>
+          )}
         </div>
       </div>
 
